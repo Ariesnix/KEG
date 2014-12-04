@@ -151,8 +151,9 @@ public class MroDao extends Thread implements IHBaseManager {
 				.split(" +");
 		// System.out.println("一共有属性" + attbutes.length + "个");
 		for (int i = 0; i < attbutes.length; i++) {
-			if (Attribute2Num.get(attbutes[i]) == null)
+			if (Attribute2Num.get(attbutes[i]) == null) {
 				System.out.println(attbutes[i]);
+			}
 			Attribute2index.put(attbutes[i].toLowerCase(), i);
 		}
 
@@ -248,6 +249,8 @@ public class MroDao extends Thread implements IHBaseManager {
 				line3 += lineMain.trim();
 				for (Iterator<Element> v = obj.elementIterator(); v.hasNext();) {
 					String[] valueLine = v.next().getText().trim().split(" +");
+					if (valueLine.length != Attribute2index.size())
+						continue;
 					Iterator<String> itAttr = Attribute2Num.keySet().iterator();
 					String s = "";
 					if (!line1.equals("")) {
@@ -310,15 +313,21 @@ public class MroDao extends Thread implements IHBaseManager {
 		// 每一个obj
 
 		String rollkey = "";
+		// 遍历objs
 		for (Element obj : objs) {
 			ArrayList<String> lineHBaseHead = new ArrayList<String>();
-
 			String lineMain = "";
-			String id[] = obj.valueOf("@id").trim().split(":");
+			String[] id = new String[]{"0","0","0"};
+			String[] id_temp = obj.valueOf("@id").trim().split(":");
+			if(id_temp.length == 0){
+				continue;
+			}else{
+				for(int i = 0; (i < id_temp.length) && (i < 3); i++){
+					id[i] = id_temp[i];
+				}
+			}
 			lineMain = id[0];
 			lineHBaseHead.add(id[0]);
-			if (id.length < 3)
-				continue;
 			lineMain += "#"
 					+ Util.getTimeAllString(obj.valueOf("@TimeStamp").trim());
 
@@ -344,6 +353,8 @@ public class MroDao extends Thread implements IHBaseManager {
 			for (Iterator<Element> v = obj.elementIterator(); v.hasNext();) {
 				ArrayList<String> lineHBase = new ArrayList<String>();
 				String[] valueLine = v.next().getText().trim().split(" +");
+				if (valueLine.length != Attribute2index.size())
+					continue;
 				Iterator<String> itAttr = Attribute2Num.keySet().iterator();
 				String s = "";
 				line1 = lineMain.trim();
