@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--/**
+ * @author Yuan Bohi
+ * @com keg205.thu.edu
+ * @date 2014-11-14
+ * 
+ */-->
+<project name="webMDAPbuilder" default="deploy" basedir=".">
+	<property file="build.properties" />
+
+	<!-- set global properties for this build -->
+
+	<!-- 发布WEB路径 -->
+	<property name="DEPLOY_PATH" value="${TOMCAT_PATH}/webapps/${WEBAPP_NAME}" />
+	<!-- 备份WEB路径 -->
+	<property name="BACKUP_PATH" value="${TOMCAT_PATH}/${WEBAPP_NAME}_backup/" />
+
+	<!-- 所有PROJECT的路径 -->
+	<property name="PRO_PATH_RESTFUL" value="${GIT_PATH}/mrdapRestful" />
+	<property name="PRO_PATH_PLA" value="${GIT_PATH}/mrdapPlatform" />
+	<property name="PRO_PATH_LIBRARIES" value="${GIT_PATH}/libraries" />
+	<property name="PRO_PATH_INPUTSYSTEM" value="${GIT_PATH}/MrdapFileInputSystem" />
+
+	<!-- 所有编译需要的路径 -->
+	<!-- 源WEB路径platfrom_restful -->
+	<property name="WEB_PATH" value="${PRO_PATH_RESTFUL}/WebContent" />
+	<!-- 源platform_restful的java文件路径 -->
+	<property name="SCR_PATH_RESTFUL" value="${PRO_PATH_RESTFUL}/src" />
+	<!-- 源platfrom的java文件路径 -->
+	<property name="SCR_PATH_PLA" value="${PRO_PATH_PLA}/src" />
+	<!--FileInputSystem路径 -->
+	<property name="SCR_PATH_INPUTSYSTEM" value="${PRO_PATH_INPUTSYSTEM}/src" />
+	<!-- 源MDAP前台的路径 -->
+	<property name="MrDAP_PATH" value="${MRDAP_WEBPAGE}" />
+
+
+
+	<!-- 编译好后的源class文件路径 -->
+	<property name="CLASS_PATH" value="${PRO_PATH_RESTFUL}/WebContent/WEB-INF/classes" />
+	<!-- tomcat class文件路径 -->
+	<property name="JAR_PATH_TOM" value="${TOMCAT_PATH}/lib" />
+
+	<!-- 定义classpath -->
+	<path id="LIB_CLASS_PATH">
+		<!---fileset file="${DEPLOY_PATH}/WEB-INF/lib/*.jar" /-->
+		<fileset file="${PRO_PATH_LIBRARIES}/" includes="**/*.jar">
+		</fileset>
+
+	</path>
+	<path id="LIB_CLASS_PATH_TOM">
+		<fileset file="${JAR_PATH_TOM}/*.jar" />
+		<!--pathelement path="${CLASS_PATH}" -->
+	</path>
+
+
+	<!-- Copy备份 -->
+	<target name="detect.file">
+		<condition property="DEPLOY_PATH_IsExists">
+			<and>
+				<available file="${DEPLOY_PATH}" />
+			</and>
+		</condition>
+	</target>
+	<target name="backup" depends="detect.file" if="DEPLOY_PATH_IsExists">
+		<echo message="backup the classes" />
+		<delete dir="${BACKUP_PATH}" />
+		<mkdir dir="${BACKUP_PATH}" />
+		<copy todir="${BACKUP_PATH}">
+			<fileset dir="${DEPLOY_PATH}">
+				<include name="**/*.*" />
+			</fileset>
+		</copy>
+	</target>
+	<!-- 初试化 -->
+	<target name="init" depends="backup" description="init the Tomcat folders">
+		<echo message="init the Tomcat folders..." />
+		<delete dir="${DEPLOY_PATH}" />
+		<delete dir="${CLASS_PATH}" />
+		<mkdir dir="${DEPLOY_PATH}" />
+		<mkdir dir="${DEPLOY_PATH}/WEB-INF" />
+		<mkdir dir="${DEPLOY_PATH}/WEB-INF/classes" />
+		<mkdir dir="${DEPLOY_PATH}/WEB-INF/lib" />
+		<mkdir dir="${CLASS_PATH}" />
+	</target>
+	<!---编译platform -->
+	<target name="compile_pla_jar" depends="init" description="compile the source files2">
+		<echo message="compiling platform...${SCR_PATH_PLA}" />
+		<mkdir dir="${PRO_PATH_PLA}/bin/classes" />
+		<javac encoding="UTF-8" srcdir="${SCR_PATH_PLA}" destdir="${PRO_PATH_PLA}/bin/classes" includeantruntime="on">
+			<classpath refid="LIB_CLASS_PATH" />
+		</javac>
+		<jar destfile="${PRO_PATH_LIBRARIES}/compile_platform.jar" basedir="${PRO_PATH_PLA}/bin/classes" />
+		<!--delete dir="${PRO_PATH_PLA}/bin/classes" /-->
+	</target>
+
+	<!---编译fileInputSystem -->
+	<target name="compile_fileInputSystem_jar" depends="init,compile_pla_jar" description="compile the source fileInputSystem">
+		<echo message="compiling fileInputSystem...${SCR_PATH_INPUTSYSTEM}" />
+		<mkdir dir="${PRO_PATH_INPUTSYSTEM}/bin/classes" />
+		<javac encoding="UTF-8" srcdir="${SCR_PATH_INPUTSYSTEM}" destdir="${PRO_PATH_INPUTSYSTEM}/bin/classes" includeantruntime="on">
+			<classpath refid="LIB_CLASS_PATH" />
+		</javac>
+		<jar destfile="${PRO_PATH_LIBRARIES}/fileInputSystem.jar" basedir="${PRO_PATH_INPUTSYSTEM}/bin/classes" />
+		<!--delete dir="${PRO_PATH_PLA}/bin/classes" /-->
+	</target>
+
+	<!-- 编译类 platform_restful -->
+	<target name="compile" depends="init,compile_pla_jar,compile_fileInputSystem_jar" description="compile the source files">
+		<!-- mkdir dir="${CLASS_PATH}" -->
+		<echo message="compiling platform_restful..." />
+		<javac encoding="UTF-8" srcdir="${SCR_PATH_RESTFUL}" destdir="${CLASS_PATH}" includeantruntime="on">
+			<classpath refid="LIB_CLASS_PATH" />
+			<classpath refid="LIB_CLASS_PATH_TOM" />
+		</javac>
+	</target>
+
+	<target name="copy_properties" depends="init,compile_pla_jar,compile">
+		<echo message="copy_properties" />
+		<copy todir="${CLASS_PATH}">
+			<fileset dir="${SCR_PATH_RESTFUL}">
+				<include name="**/*.properties" />
+			</fileset>
+		</copy>
+	</target>
+
+	<!-- Copy所有后台Libraries中的jar文件copy 到Tomcat里要发布的项目的lib里中 抛弃目录结构-->
+	<target name="copy_libraries_to_tomlib" depends="copy_properties">
+		<echo message="copy .jar to Lib.." />
+
+		<copy todir="${DEPLOY_PATH}/WEB-INF/lib" flatten="true">
+			<fileset dir="${PRO_PATH_LIBRARIES}/">
+				<include name="**/*.jar" />
+			</fileset>
+		</copy>
+	</target>
+
+	<!-- Copy所有后台的class文件 -->
+	<target name="copy_deploy" depends="copy_libraries_to_tomlib">
+		<echo message="copy .class to Tomcat.." />
+		<copy todir="${DEPLOY_PATH}">
+			<fileset dir="${WEB_PATH}">
+				<include name="**/*.*" />
+				<exclude name="**/jsp_servlet/*.class" />
+				<exclude name="**/build.xml" />
+				<exclude name="**/deploy.xml" />
+				<exclude name="**/build.properties" />
+				<exclude name="**/servers.xml" />
+				<exclude name="**/targets.xml" />
+				<exclude name="**/*.war" />
+			</fileset>
+		</copy>
+	</target>
+	<!-- Copy所有后台的mrdap中的网页文件 -->
+	<target name="copy_MrDAP" depends="copy_deploy">
+		<echo message="copy MrDAP to Tomcat.." />
+		<copy todir="${DEPLOY_PATH}">
+			<fileset dir="${MrDAP_PATH}">
+				<include name="**/*.*" />
+			</fileset>
+		</copy>
+		<delete>
+			<fileset dir="${WEB_PATH}/WEB-INF/lib/">
+				<include name="compile_platform.jar" />
+			</fileset>
+		</delete>
+	</target>
+
+	<target name="deploy" depends="copy_MrDAP">
+		<echo message="deploying to Tomcat.." />
+	</target>
+
+</project>
+

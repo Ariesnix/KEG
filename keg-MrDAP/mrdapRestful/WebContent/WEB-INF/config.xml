@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<!-- entry key="DataSetFile">C:\Users\myc\git\mayrock\keg-operator-data\platform\datasets</entry -->
+	<entry key="DataSetFile">datasets</entry>
+	<entry key="TaskFile">tasks</entry>
+	<entry key="HadoopRoot">hdfs://10.1.1.121:9900/mobile/</entry>
+	<entry key="SqlAddress">sqlserver://10.1.1.55:1433</entry>
+	<entry key="OracleAddress">10.1.1.110:1521</entry>
+	<entry key="HiveAddress">10.1.1.165:10000</entry>
+</properties>

@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns = "http://www.w3.org/1999/xhtml" xml:lang = "en">
+	<head>
+		<meta charset = "utf-8">
+		<title>MR数据分析系统</title>
+		<link href = "css/jquery-ui.min.css" rel = "stylesheet" type = "text/css"/>
+		<link href = "css/jquery-ui.structure.min.css" rel = "stylesheet" type = "text/css"/>
+		<link href = "css/jquery-ui.theme.min.css" rel = "stylesheet" type = "text/css"/>
+		<link href = "css/jquery.dataTables.min.css" rel = "stylesheet" type = "text/css"/>
+		
+		<link href = "css/style.css" rel = "stylesheet" type = "text/css"/>
+		<link href = "css/style-tabs.css" rel = "stylesheet" type = "text/css"/>
+		
+		<script type = "text/javascript" src = "js/jquery-2.1.1.min.js"></script>
+		<script type = "text/javascript" src = "js/jquery-ui.min.js"></script>
+		<script type = "text/javascript" src = "js/jquery.dataTables.min.js"></script>
+		
+		<script type = "text/javascript" src = "js/common-task.js"></script>
+		<script type = "text/javascript" src = "js/url.js"></script>
+		<script type = "text/javascript" src = "js/task.js"></script>
+	</head>
+	<body>
+		<div id = "header">
+			<div id = "title" onclick = "location.href = 'index.html';">MR 数据分析系统</div>
+		</div>
+		<div id = "main">
+			<div id = "task">
+				<div id = "tstitle">
+					<span>任务列表</span>
+				</div>
+				<div id = "tslist"></div>
+			</div>
+			<div id = "detail">
+				<div id = "dttabs">
+					<ul>
+						<li><a href="#dtfragment-1">新建任务</a></li>
+						<li><a href="#dtfragment-2">任务详情</a></li>
+					</ul>
+					<div id="dtfragment-1">
+					</div>
+					<div id="dtfragment-2">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id = "footer">
+			<span>Copyright &copy; 2014 MR Data Analysis Platform. Design by <a href = 'mailto:ariesnix93@gmail.com'>Ariesnix</a></span>
+		</div>
+		<div id = "window">
+			<img src = "css/images/close_256x256.png" onclick = "Task.closeWindow()"/>
+			<span class = "window-title">选择数据集</span>
+			<div class = "window-table-cntr"></div>
+			<input type = "button" value = "确认" onclick = "Task.closeWindow()"/>
+		</div>
+		<div id = "window-waiting">
+			<img src = "css/images/waiting_128x128.gif"/><br/>
+			<span>正在提交任务...</span>
+		</div>
+		<div id = "background"></div>
+	</body>
+</html>

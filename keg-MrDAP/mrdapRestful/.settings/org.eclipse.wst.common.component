@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="mrdapRestful">
+        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/lib/" source-path="/localLib/xstream"/>
+        <wb-resource deploy-path="/WEB-INF/lib/" source-path="/localLib/jersey"/>
+        <wb-resource deploy-path="/WEB-INF/lib/" source-path="/localLib/log4j"/>
+        <wb-resource deploy-path="/WEB-INF/lib/" source-path="/localLib/hadoop"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/lib/" source-path="/localLib/dom4j"/>
+        <wb-resource deploy-path="/WEB-INF/lib/" source-path="/localLib/hbase"/>
+        <dependent-module archiveName="mrdapPlatform.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/mrdapPlatform/mrdapPlatform">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="MrdapFileInputSystem.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/MrdapFileInputSystem/MrdapFileInputSystem">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="java-output-path" value="/mrdapRestful/build/classes"/>
+        <property name="context-root" value="mrdap"/>
+    </wb-module>
+</project-modules>

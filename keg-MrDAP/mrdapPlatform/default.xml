@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Configurations>
+
+	<Configuration>
+		<name>HADOOP_HOME</name>
+		<value>/usr/local/hadoop-2.2.0</value>
+	</Configuration>
+	<Configuration>
+		<name>SPARK_HOME</name>
+		<value>/usr/local/spark-1.0.1</value>
+	</Configuration>
+	<Configuration>
+		<name>DATA_LOCATION</name>
+		<value>/mobile</value>
+	</Configuration>
+
+	<Configuration>
+		<name>APPLICATION_SUBMIT_URL</name>
+		<value>http://10.1.1.121:4444/JobSubmit_20140924/</value>
+	</Configuration>
+
+	<Configuration>
+		<name>APPLICATION_INFO_URL</name>
+		<value>http://10.1.1.121:8088</value>
+	</Configuration>
+
+	<Configuration>
+		<name>HDFS_URL</name>
+		<value>hdfs://10.1.1.121:9900</value>
+	</Configuration>
+
+
+
+</Configurations>

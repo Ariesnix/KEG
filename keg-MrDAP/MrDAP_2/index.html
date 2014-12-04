@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MR数据分析系统</title>
+
+    <!-- Core CSS - Include with every page -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+	
+    <!-- Page-Level Plugin CSS - Dashboard -->
+   
+    
+
+    <!-- SB Admin CSS - Include with every page -->
+    <link href="css/sb-admin.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">MR数据分析平台</a>
+            </div>
+            <!-- /.navbar-header -->
+
+            
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default navbar-static-side" role="navigation">
+                <div class="sidebar-collapse">
+                    <ul class="nav" id="side-menu">            
+                        <li>
+                            <a href="CreateTask.html"><i class="fa fa-dashboard fa-fw"></i>新建任务<span class="fa arrow"></span></a>
+                            <!-- /.nav-second-level -->
+                        </li> 
+                        
+						<li>
+                            <a href="#" onClick="Task.viewTaskList()"><i class="fa fa-dashboard fa-fw"></i>查看任务</a>
+                        </li> 
+                        
+						<li>
+                            <a href="ImportData.html"><i class="fa fa-dashboard fa-fw"></i>导入数据</a>
+                        </li>  
+                        
+                        <li>
+                            <a href="About.html"><i class="fa fa-dashboard fa-fw"></i>关于</a>
+                        </li>  
+                    </ul>
+                    <!-- /#side-menu -->
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <div id="page-wrapper">
+        	<!-- /.row -->
+            <div class="row">
+	            <h1 class="page-header" id="page-header"></h1>
+            </div>
+        
+        	
+            
+            <!-- /.row -->
+            <div class="row" id="view-task">
+            	
+            </div>
+            
+            <!-- /.row -->
+            
+            <!-- modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content" id="taskinfo-modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="modal-close">&times;</button>
+                                            <h4 class="modal-title" id="myModalLabel">查看任务</h4>
+                                        </div>
+                                        <div class="modal-body" id="taskinfo-modal-body">
+                                        
+                                            
+                                        </div>
+                                        <div class="modal-footer" id="taskinfo-modal-footer">
+                                           
+                                        </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
+                            
+                            
+             <div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="confirm" aria-hidden="true">
+				   <div class="modal-dialog">
+					   <div class="modal-content">
+						  <div class="modal-body">
+						    确定要删除？
+						  </div>
+						  <div class="modal-footer">
+						    <button type="button" data-dismiss="modal" class="btn btn-danger" id="delete">删除</button>
+						    <button type="button" data-dismiss="modal" class="btn">取消</button>
+						  </div>
+					</div>
+				</div>
+			</div>
+			
+			 <div class="modal fade" id="confirm2" tabindex="-1" role="dialog" aria-labelledby="confirm2" aria-hidden="true">
+				   <div class="modal-dialog">
+					   <div class="modal-content">
+						  <div class="modal-body">
+						    确定要终止？
+						  </div>
+						  <div class="modal-footer">
+						    <button type="button" data-dismiss="modal" class="btn btn-danger" id="delete">终止</button>
+						    <button type="button" data-dismiss="modal" class="btn">取消</button>
+						  </div>
+					</div>
+				</div>
+			</div>
+                            
+            <!-- modal -->
+            
+            
+            <!-- /.row -->
+            
+            <!-- /.row -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Core Scripts - Include with every page -->
+    <script src="js/jquery-1.10.2.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    
+   	<script type='text/javascript' src='js/mrdap/common.js'></script>
+	<script type='text/javascript' src='js/mrdap/url.js'></script>
+	<script type='text/javascript' src='js/mrdap/task.js'></script>
+	
+	<script src="js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="js/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <script type = "text/javascript" src="js/dist/echarts.js"></script>
+    
+    <script>
+    $( document ).ready(function() {
+        //console.log( "view page" );
+        Task.viewTaskList();
+       
+    });
+    
+	
+    	
+    </script>
+
+</body>
+
+</html>

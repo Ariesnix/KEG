@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MR数据分析系统</title>
+
+    <!-- Core CSS - Include with every page -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+     <link rel="stylesheet" href="css/jquery.percentageloader-0.1.css">
+     <link rel="stylesheet" href="css/style.css">
+
+    <!-- Page-Level Plugin CSS - Dashboard -->
+   
+    
+
+    <!-- SB Admin CSS - Include with every page -->
+    <link href="css/sb-admin.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">MR数据分析平台</a>
+            </div>
+            <!-- /.navbar-header -->
+
+            
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default navbar-static-side" role="navigation">
+                <div class="sidebar-collapse">
+                    <ul class="nav" id="side-menu">            
+                        <li>
+                            <a href="CreateTask.html"><i class="fa fa-dashboard fa-fw"></i>新建任务<span class="fa arrow"></span></a>
+                            <!-- /.nav-second-level -->
+                        </li> 
+                        
+						<li>
+                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i>查看任务</a>
+                        </li> 
+                        
+						<li>
+                            <a href="#" onclick="Import.main()"><i class="fa fa-dashboard fa-fw"></i>导入数据</a>
+                        </li>  
+                        
+                        <li>
+                            <a href="About.html"><i class="fa fa-dashboard fa-fw"></i>关于</a>
+                        </li>  
+                    </ul>
+                    <!-- /#side-menu -->
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <div id="page-wrapper">
+        	<!-- /.row -->
+            <div class="row">
+	            <h1 class="page-header" id="page-header"></h1>
+            </div>
+        
+        	<!-- /.row -->
+            <div class="row" id="create-task">
+	            <div class='main-page' style='' id='main-display'>
+	            </div>
+            </div>
+            
+            
+            <!-- /.row -->
+            <div class="row">		
+				
+				<div class='col-lg-12' >
+					<div class="panel panel-default" id='import-info'>
+	                     	<div class="panel-heading">
+	                         <i class="fa fa-bar-chart-o fa-fw"></i> 导入详情
+	                         </div>
+                                
+ 						<div class="panel-body">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs">
+	                             <li class="active"><a href="#import-data-tslist" data-toggle="tab">数据选择</a>
+	                                </li>
+                                <li><a href="#running-import" data-toggle="tab" id="running">正在导入</a>
+                                </li>
+                                <li><a href="#success-import1" data-toggle="tab">导入完成</a>
+                                </li>
+                            </ul>
+
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                            	<div class="tab-pane fade in active" id="import-data-tslist">
+
+                                </div>
+                            
+                                <div class="tab-pane fade table-responsive" id="running-import">
+                                    
+                                </div>
+                                <div class="tab-pane fade " id="success-import1">
+                                	<div class = "table-responsive table-bordered"  id="success-import">
+                                	
+                                	</div>
+                                    
+                                </div>
+                                
+                            </div>
+                        </div>
+	                         
+	                         
+	                         
+	                         </div>
+	                     
+	                     </div>
+				
+				</div>
+            </div>
+        </div>
+        <!-- /#page-wrapper -->
+
+    <!-- /#wrapper -->
+
+    <!-- Core Scripts - Include with every page -->
+    <script src="js/jquery-1.10.2.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+
+
+    
+   	<script type='text/javascript' src='js/mrdap/common.js'></script>
+	<script type='text/javascript' src='js/mrdap/url.js'></script>
+	<script type='text/javascript' src='js/mrdap/task.js'></script>
+	<script type='text/javascript' src='js/mrdap/import.js'></script>
+	<script src="js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="js/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <script src="js/jquery.percentageloader-0.1.js"></script>
+   
+    
+    
+	
+
+    
+    <script>
+    $( document ).ready(function() {
+        //console.log( "import data" );
+        Import.main();
+    });
+    
+    </script>
+    
+
+
+</body>
+
+</html>
